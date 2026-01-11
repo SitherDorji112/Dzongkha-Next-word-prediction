@@ -74,7 +74,9 @@ The GRU model was selected based on its lower perplexity compared to BiLSTM and 
 
 - Demonstrated reliable next-syllable prediction performance on unseen test data
 
+- Confirms the suitability of recurrent neural networks for low-resource language modeling
+  
 <img width="1829" height="905" alt="image" src="https://github.com/user-attachments/assets/059ab184-86a7-490c-a15d-aa80f5bffee5" />
   
 
-- Confirms the suitability of recurrent neural networks for low-resource language modeling
+
