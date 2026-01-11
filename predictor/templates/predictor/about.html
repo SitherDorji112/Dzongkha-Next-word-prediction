@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Dzongkha Next Word Predictor</title>
+    <link rel="stylesheet" href="{% static 'predictor/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .about-header h1 {
+            color: var(--secondary-color);
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .home-icon a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(255, 153, 51, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .home-icon a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+            background: linear-gradient(135deg, #FF6B35, #FF9933);
+            color: white;
+        }
+
+        .home-icon i {
+            font-size: 20px;
+        }
+
+        .about-header p {
+            font-size: 1.2em;
+            color: white !important;
+            opacity: 0.9;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .member-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 153, 51, 0.2);
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid var(--primary-color);
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .member-image:hover {
+            transform: scale(1.05);
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .member-name {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .member-role {
+            font-size: 1em;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .member-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .member-contact p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .member-contact i {
+            color: var(--primary-color);
+            margin-right: 8px;
+            width: 16px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .about-header h1 {
+                font-size: 2.2em;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .member-card {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="home-icon">
+        <a href="{% url 'index' %}" title="Back to Home">
+            <i class="fas fa-home"></i>
+        </a>
+    </div>
+    <div class="about-container">
+        <div class="about-header">
+            <h1>🇧🇹 Our Team</h1>
+            <p>Meet the talented developers behind the Dzongkha Next Word Predictor</p>
+        </div>
+
+        <div class="team-grid">
+            <!-- Member 1 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="{% static 'images/1.jpeg' %}" alt="Member 1">
+                </div>
+                <h3 class="member-name">Sither Dorji</h3>
+                <p class="member-role">Developer</p>
+                <div class="member-contact">
+                    <p><i class="fas fa-phone"></i> 77661579</p>
+                    <p><i class="fas fa-envelope"></i> dorjisither112@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="{% static 'images/2.jpeg' %}" alt="Member 2">
+                </div>
+                <h3 class="member-name">Tshering Pema</h3>
+                <p class="member-role">Developer</p>
+                <div class="member-contact">
+                    <p><i class="fas fa-phone"></i> 17660710</p>
+                    <p><i class="fas fa-envelope"></i> tpems2019@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="{% static 'images/3.jpeg' %}" alt="Member 3">
+                </div>
+                <h3 class="member-name">Neten Dorji</h3>
+                <p class="member-role">Developer</p>
+                <div class="member-contact">
+                    <p><i class="fas fa-phone"></i> 17951800</p>
+                    <p><i class="fas fa-envelope"></i> dorjineten183@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Member 4 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="{% static 'images/4.jpeg' %}" alt="Member 4">
+                </div>
+                <h3 class="member-name">Pem lham Theingh</h3>
+                <p class="member-role">Developer</p>
+                <div class="member-contact">
+                    <p><i class="fas fa-phone"></i> 77619587</p>
+                    <p><i class="fas fa-envelope"></i> thayeeailhamopema2002@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home icon is now at the top -->
+    </div>
+</body>
+</html>

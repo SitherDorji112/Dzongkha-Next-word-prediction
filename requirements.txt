@@ -1,0 +1,4 @@
+Django>=3.2
+tensorflow>=2.10
+numpy
+scikit-learn

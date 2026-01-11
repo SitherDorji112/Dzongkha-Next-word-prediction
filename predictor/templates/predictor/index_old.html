@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="dz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dzongkha Next Word Predictor</title>
+    <link rel="stylesheet" href="{% static 'predictor/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Dzongkha Next Word Predictor</h1>
+        <p>Enter Dzongkha text to get intelligent next word suggestions powered by NLP.</p>
+        <textarea id="inputText" class="input-text" rows="4" placeholder="འབྲི་ནས་ཤེས་བཤད་འབད། (Type Dzongkha text...)"></textarea>
+        <div id="suggestions" class="suggestions"></div>
+    </div>
+
+    <script>
+        const inputBox = document.getElementById('inputText');
+        const suggestionsDiv = document.getElementById('suggestions');
+
+        // Automatic insertion of tshag "་" on spacebar press
+        inputBox.addEventListener('keydown', function(event) {
+            if (event.key === ' ') {
+                event.preventDefault();
+                const cursorPos = inputBox.selectionStart;
+                const text = inputBox.value;
+
+                // Get the character immediately before the cursor
+                const prevChar = text[cursorPos - 1];
+
+                // Only insert "་" if the previous character is NOT sheg "།"
+                if (prevChar !== '།') {
+                    inputBox.value = text.slice(0, cursorPos) + '་' + text.slice(cursorPos);
+                    inputBox.selectionEnd = cursorPos + 1;
+                } else {
+                    // If previous character is "།", just insert a space
+                    inputBox.value = text.slice(0, cursorPos) + ' ' + text.slice(cursorPos);
+                    inputBox.selectionEnd = cursorPos + 1;
+                }
+            }
+        });
+
+        // Fetch predictions from backend
+        function fetchPredictions() {
+            const text = inputBox.value.trim();
+            if (text === "") {
+                suggestionsDiv.innerHTML = "";
+                return;
+            }
+
+            fetch(`/predict_ajax?text=${encodeURIComponent(text)}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsDiv.innerHTML = "";
+                    data.predictions.forEach(pred => {
+                        const btn = document.createElement("div");
+                        btn.className = "suggestion";
+                        btn.innerText = pred;
+                        btn.onclick = () => {
+                            // Append clicked syllable with tshag marker
+                            inputBox.value = inputBox.value.trim() + pred + "་";
+                            fetchPredictions(); // refresh predictions
+                        };
+                        suggestionsDiv.appendChild(btn);
+                    });
+                })
+                .catch(err => console.error("Error:", err));
+        }
+
+        // Update predictions as user types
+        inputBox.addEventListener('input', fetchPredictions);
+    </script>
+</body>
+</html>
